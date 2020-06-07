@@ -1,0 +1,11 @@
+{
+  "name": "DSOW",
+  "version": "1.0.0",
+  "description": "别踩白块儿网页版",
+  // "main": "index.js",
+  "author": "KCVO1995",
+  "license": "MIT",
+  "dependencies": {
+    "parcel-bundler": "^1.12.4"
+  }
+}
