@@ -160,7 +160,7 @@ function delrow() {
 // 记分
 function score() {
     currentScore += 1
-    $('#score').innerHTML = currentScore;//修改分数
+    $('#score').innerHTML = `score ${currentScore}`;//修改分数
     if (currentScore % 10 === 0) {//当分数是10 的倍数时使用加速函数，越来越快
         speedup();
         levelShow()
@@ -170,7 +170,7 @@ function score() {
 // 关数显示
 function levelShow() {
     level += 1
-    $(".level").innerHTML = `LEVEL ${level}`
+    $(".level").innerHTML = `LEVEL ${level} `
     $(".level").classList.add('show')
     setTimeout(() => {
         $(".level").classList.remove('show')
