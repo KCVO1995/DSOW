@@ -2,6 +2,7 @@ let clock = null;
 let state = 0;
 let speed = 8;
 let level = 1
+let music = 1
 let currentScore = 0
 
 
@@ -34,6 +35,7 @@ function start() {
 
     // 添加onclick事件
     $('main').onclick = function (ev) {
+        // 通过clone方法实现多个声音同时响起
         ev = ev || event
         judge(ev);
     }
@@ -51,6 +53,9 @@ function judge(ev) {
 
     if (ev.target.className.indexOf('black') !== -1) {
         //点击目标元素 类名中包含 black 说明是黑块
+        $(`#audio${music}`).cloneNode().play();
+        music += 1
+        if (music === 9) music = 1
         ev.target.className = 'cell';
         // TODO
         ev.target.parentNode.pass = 1; //定义属性pass，表明此行row的黑块已经被点击
@@ -63,6 +68,7 @@ function judge(ev) {
 
 // 游戏结束
 function fail() {
+    $(`#audio0`).cloneNode().play();
     clearInterval(clock);
     // confirm(`你的最终得分为${currentScore}`);
     failShow()
@@ -76,7 +82,8 @@ function reset() {
     $('#score').innerHTML = `score 0`
     speed = 8
     level = 1
-    score = 0
+    currentScore = 0
+    music = 1
 }
 
 // 创造一个<div class="row">并且有四个子节点<div class="cell">
@@ -180,9 +187,9 @@ function levelShow() {
 }
 
 function failShow() {
-    $(".level").innerHTML = `fail`
-    $(".level").classList.add('show')
+    $(".fail").classList.add('show')
+    $('.fail-score').innerHTML = `your score: ${currentScore}`
     setTimeout(() => {
-        $(".level").classList.remove('show')
+        $(".fail").classList.remove('show')
     }, 1500)
 }
