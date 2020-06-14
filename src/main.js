@@ -64,17 +64,19 @@ function judge(ev) {
 // 游戏结束
 function fail() {
     clearInterval(clock);
-    confirm(`你的最终得分为${currentScore}`);
-    reset()
-    var con = $('#con');
-    con.innerHTML = "";
-    $('#score').innerHTML = 0;
-    con.style.top = '-408px';
+    // confirm(`你的最终得分为${currentScore}`);
+    failShow()
+    setTimeout(() => { reset() }, 1500)
 }
 function reset() {
+    var con = $('#con');
+    con.innerHTML = "";
     $('.start').classList.remove('hidden')
+    $('#con').style.top = '-408px';
+    $('#score').innerHTML = `score 0`
     speed = 8
     level = 1
+    score = 0
 }
 
 // 创造一个<div class="row">并且有四个子节点<div class="cell">
@@ -171,6 +173,14 @@ function score() {
 function levelShow() {
     level += 1
     $(".level").innerHTML = `LEVEL ${level} `
+    $(".level").classList.add('show')
+    setTimeout(() => {
+        $(".level").classList.remove('show')
+    }, 1500)
+}
+
+function failShow() {
+    $(".level").innerHTML = `fail`
     $(".level").classList.add('show')
     setTimeout(() => {
         $(".level").classList.remove('show')
