@@ -1,6 +1,7 @@
 let clock = null;
 let state = 0;
-let speed = 10;
+let speed = 8;
+let level = 1
 let currentScore = 0
 
 
@@ -64,11 +65,16 @@ function judge(ev) {
 function fail() {
     clearInterval(clock);
     confirm(`你的最终得分为${currentScore}`);
-    $('.start').classList.remove('hidden')
+    reset()
     var con = $('#con');
     con.innerHTML = "";
     $('#score').innerHTML = 0;
-    con.style.top = '0px';
+    con.style.top = '-408px';
+}
+function reset() {
+    $('.start').classList.remove('hidden')
+    speed = 8
+    level = 1
 }
 
 // 创造一个<div class="row">并且有四个子节点<div class="cell">
@@ -125,7 +131,7 @@ function move() {
 // 判断游戏是否结束
 function over() {
     let rows = con.childNodes;
-    if ((rows.length == 5) && (rows[rows.length - 1].pass !== 1)) {
+    if ((rows.length === 6) && (rows[rows.length - 1].pass !== 1)) {
         fail();
     }
     for (let i = 0; i < rows.length; i++) {
@@ -141,15 +147,12 @@ function over() {
 // 加速函数
 function speedup() {
     speed += 2;
-    // if (speed === 20) {
-    //     alert('你超神了');
-    // }
 }
 
 //删除某行
 function delrow() {
     var con = $('#con');
-    if (con.childNodes.length === 8) {
+    if (con.childNodes.length === 7) {
         con.removeChild(con.lastChild);
     }
 }
@@ -158,7 +161,18 @@ function delrow() {
 function score() {
     currentScore += 1
     $('#score').innerHTML = currentScore;//修改分数
-    if (currentScore % 5 === 0) {//当分数是10 的倍数时使用加速函数，越来越快
+    if (currentScore % 10 === 0) {//当分数是10 的倍数时使用加速函数，越来越快
         speedup();
+        levelShow()
     }
+}
+
+// 关数显示
+function levelShow() {
+    level += 1
+    $(".level").innerHTML = `LEVEL ${level}`
+    $(".level").classList.add('show')
+    setTimeout(() => {
+        $(".level").classList.remove('show')
+    }, 1500)
 }

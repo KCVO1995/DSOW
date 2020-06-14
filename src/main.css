@@ -60,3 +60,23 @@ main {
 .start.hidden {
     display: none;
 }
+
+/* level */
+
+.level {
+position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    height: 50px;
+    width: 100px;
+    line-height: 50px;
+    text-align: center;
+    font-weight: bolder;
+    color: #32e0c4;
+    font-size: 22px;
+    display: none;
+}
+.level.show {
+    display: block;
+}
